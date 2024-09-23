@@ -19,17 +19,20 @@
  **/
 
 /**
- * Set a high default limit to avoid too many revisions from polluting the database.
+ * Limit the number of revisions retained per post.
+ *
+ * By default, all revisions are retained. Use this constant to reduce the number of revisions retained per post.
+ *
+ * Feel free to adjust the value depending on your use cases (e.g. posts with a very high revision count can result in performance issues).
  *
  * @see https://docs.wpvip.com/wordpress-on-vip/post-revisions/
  *
- * Posts with high revisions can result in fatal errors or have performance issues.
- *
- * Feel free to adjust this depending on your use cases.
  */
+/*
 if ( ! defined( 'WP_POST_REVISIONS' ) ) {
-	define( 'WP_POST_REVISIONS', -1 );
+	define( 'WP_POST_REVISIONS', 100 );
 }
+*/
 
 /**
  * The VIP_JETPACK_IS_PRIVATE constant is enabled by default in non-production environments.
