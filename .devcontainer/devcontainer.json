@@ -60,9 +60,10 @@
             // Set to false to prevent wp-content/uploads content from persisting between rebuilds.
             "moveUploadsToWorkspaces": true,
             // Set to true to create the environment as a WordPress multisite.
-            "multisite": false,
+            "multisite": true,
             // GitHub Codespaces only supports the subdirectory network type for multisite; subdomain cannot be used.
-            "multisiteStyle": "subdirectory"
+            "multisiteStyle": "subdirectory",
+            "domain": "localhost:90"
         },
         "ghcr.io/automattic/vip-codespaces/wp-cli:latest": {
             // Set to true to enable nightly builds of WP-CLI.
@@ -169,5 +170,13 @@
                 "automattic.logwatcher"
             ]
         }
-    }
+    },
+    "initializeCommand": ".devcontainer/init.sh",
+    "runArgs": [
+        "-l", "traefik.enable=true",
+        "-l", "traefik.http.routers.${devcontainerId}.rule=Host(`localhost`)",
+        "-l", "traefik.http.routers.${devcontainerId}.entrypoints=http",
+        "-l", "traefik.http.routers.${devcontainerId}.service=${devcontainerId}-service",
+        "-l", "traefik.http.services.${devcontainerId}-service.loadbalancer.server.port=80"
+    ]
 }
